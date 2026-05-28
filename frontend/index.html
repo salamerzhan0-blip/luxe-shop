@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07070a">
+  <title>LUXE SHOP — Электронная коммерция</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav class="nav" id="mainNav">
+    <div class="container nav-inner">
+      <div class="nav-logo" onclick="navigate('home')" style="cursor:pointer">
+        <div class="nav-logo-mark">✦</div>
+        LUXE
+      </div>
+      <div id="navLinks" class="nav-links"></div>
+      <button class="nav-cart-btn" id="navCartBtn" onclick="navigate('cart')" style="display:none">
+        <span>🛒</span>
+        <span>Корзина</span>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Pages ── -->
+
+  <!-- HOME -->
+  <div class="page" id="page-home">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-bg-image"></div>
+      <div class="hero-border-line"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-tag">✦ Новая коллекция 2024</div>
+          <h1>Лучшие товары<br><em>по лучшим ценам</em></h1>
+          <p>Тщательно отобранные продукты от лучших мировых брендов. Быстрая доставка.</p>
+          <div class="hero-cta" style="display:flex;gap:14px;flex-wrap:wrap">
+            <button class="btn btn-primary btn-lg" onclick="navigate('catalog')">Смотреть каталог</button>
+            <button class="btn btn-outline btn-lg" onclick="navigate('auth')">Создать аккаунт</button>
+          </div>
+        </div>
+      </div>
+      <div class="hero-decoration" id="heroCards"></div>
+    </div>
+
+    <div class="container">
+      <!-- Categories -->
+      <div style="margin-bottom:72px">
+        <div class="section-label">Категории</div>
+        <div class="section-header">
+          <h2>Что вас интересует?</h2>
+          <button class="btn btn-ghost" onclick="navigate('catalog')">Все товары →</button>
+        </div>
+        <div id="categoryBanners" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px"></div>
+      </div>
+
+      <!-- Featured Products -->
+      <div style="margin-bottom:72px">
+        <div class="section-label">Популярное</div>
+        <div class="section-header">
+          <h2>Рекомендуемые товары</h2>
+          <button class="btn btn-ghost" onclick="navigate('catalog')">Смотреть все →</button>
+        </div>
+        <div class="products-grid" id="featuredGrid">
+          <div class="loading"><div class="spinner"></div>Загрузка...</div>
+        </div>
+      </div>
+
+      <!-- Feature strip -->
+      <div class="feature-strip" style="margin-bottom:72px">
+        <div class="feature-item">
+          <div class="feature-item-icon">🚚</div>
+          <div>
+            <div style="font-size:0.82rem;font-weight:500;color:var(--text)">Быстрая доставка</div>
+            <div style="font-size:0.75rem;color:var(--text3);margin-top:2px">1–7 рабочих дней</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">🛡️</div>
+          <div>
+            <div style="font-size:0.82rem;font-weight:500;color:var(--text)">Гарантия качества</div>
+            <div style="font-size:0.75rem;color:var(--text3);margin-top:2px">Только оригинальные товары</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">↩️</div>
+          <div>
+            <div style="font-size:0.82rem;font-weight:500;color:var(--text)">Возврат 30 дней</div>
+            <div style="font-size:0.75rem;color:var(--text3);margin-top:2px">Без вопросов</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATALOG -->
+  <div class="page" id="page-catalog">
+    <div class="container">
+      <div class="section-label">Каталог</div>
+      <h2 style="margin-bottom:32px">Все товары</h2>
+      <div class="category-pills" id="catalogCategoryPills"></div>
+      <div class="filters-bar">
+        <div class="filter-group search-input-wrapper">
+          <label>Поиск</label>
+          <span class="search-icon">🔍</span>
+          <input class="filter-input" id="filterSearch" placeholder="Поиск товаров...">
+        </div>
+        <div class="filter-group">
+          <label>Цена от</label>
+          <input class="filter-input" id="filterMinPrice" type="number" placeholder="0" min="0">
+        </div>
+        <div class="filter-group">
+          <label>Цена до</label>
+          <input class="filter-input" id="filterMaxPrice" type="number" placeholder="∞" min="0">
+        </div>
+        <div class="filter-group">
+          <label>Бренд</label>
+          <input class="filter-input" id="filterBrand" placeholder="Nike, Apple...">
+        </div>
+        <div class="filter-group" style="justify-content:flex-end">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" onclick="applyFilters()">Применить</button>
+        </div>
+        <div class="filter-group" style="justify-content:flex-end">
+          <label>&nbsp;</label>
+          <button class="btn btn-ghost" onclick="resetFilters()">Сбросить</button>
+        </div>
+      </div>
+      <div class="products-grid" id="catalogGrid">
+        <div class="loading"><div class="spinner"></div>Загрузка...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL -->
+  <div class="page" id="page-product">
+    <div class="container">
+      <div id="productDetailContent">
+        <div class="loading"><div class="spinner"></div>Загрузка...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART -->
+  <div class="page" id="page-cart">
+    <div class="container">
+      <div id="cartContent">
+        <div class="loading"><div class="spinner"></div>Загрузка корзины...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT -->
+  <div class="page" id="page-checkout">
+    <div class="container">
+      <div id="checkoutContent">
+        <div class="loading"><div class="spinner"></div>Загрузка...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDERS -->
+  <div class="page" id="page-orders">
+    <div class="container">
+      <div id="ordersContent">
+        <div class="loading"><div class="spinner"></div>Загрузка заказов...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH -->
+  <div class="page" id="page-auth">
+    <div id="authContent"></div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">✦ LUXE SHOP</div>
+      <div class="footer-links">
+        <span>Доставка</span>
+        <span>Возврат</span>
+        <span>Контакты</span>
+        <span>О нас</span>
+      </div>
+      <div class="footer-copy">© 2024 LUXE SHOP. Все права защищены.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Sticky nav shadow
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    function resetFilters() {
+      state.filters = { search: '', category_id: '', min_price: '', max_price: '', brand: '' };
+      document.getElementById('filterSearch').value = '';
+      document.getElementById('filterMinPrice').value = '';
+      document.getElementById('filterMaxPrice').value = '';
+      document.getElementById('filterBrand').value = '';
+      renderCatalog();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && state.currentPage === 'catalog') applyFilters();
+    });
+  </script>
+</body>
+</html>
