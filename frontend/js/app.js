@@ -1,5 +1,5 @@
 // ── API ──────────────────────────────────────────────────────────
-const API = 'http://localhost:3000/api';
+const API = 'http://localhost:8080/api';
 
 const api = {
   async req(method, path, body) {
@@ -89,7 +89,7 @@ function toast(msg, type = 'info') {
     el.style.transform = 'translateX(60px)';
     el.style.transition = '0.3s ease';
     setTimeout(() => el.remove(), 300);
-  }, 3000);
+  }, 8080);
 }
 
 // ── Navigation ────────────────────────────────────────────────────
